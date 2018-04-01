@@ -1,4 +1,4 @@
-package concat;
+package multithreading;
 
 public class Buffer {
     private StringBuffer buffer = new StringBuffer();
@@ -6,6 +6,11 @@ public class Buffer {
     public void add(int value) {
         System.out.print(value);
         this.buffer.append(value);
+        /*try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
     }
 
     @Override

@@ -1,4 +1,4 @@
-package concat;
+package multithreading;
 
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -40,7 +40,16 @@ public class Producer extends Thread {
         final Buffer buffer = new Buffer();
         final ReentrantLock lock = new ReentrantLock();
         final AtomicInteger flag = new AtomicInteger(2);
-        new Producer(buffer, 1, lock, flag).start();
-        new Producer(buffer, 2, lock, flag).start();
+        Producer p1 = new Producer(buffer, 1, lock, flag);
+        Producer p2 = new Producer(buffer, 2, lock, flag);
+        p1.start();
+        p2.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        new Producer(buffer, 1, lock, flag).interrupt();
+        new Producer(buffer, 2, lock, flag).interrupt();
     }
 }
